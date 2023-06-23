@@ -16,9 +16,11 @@ dotenv.config();
 
     const repo = await mongoRepo.setupMongo()
 
-    let _app = setupRouter(app,{ userRepository:repo.userRepository })
+    let _app = setupRouter({ userRepository:repo.userRepository })
 
-    _app.listen(port, () => {
+    app.use("/api/v1" as any, _app);
+
+    app.listen(port, () => {
         console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
     });
 })();

@@ -1,25 +1,23 @@
-import {Response, Request, Express} from 'express';
+import express, {Response, Request, Router} from 'express';
 import {userUsecase, userRepository, IUser} from "@domain/user";
 
 export class userHttpHandler {
     repo: userRepository;
     usecase: userUsecase;
-    router: Express;
 
-    constructor(router: Express, repo: userRepository, usecase: userUsecase) {
-        this.router = router
+    router = express.Router();
+
+    constructor(app: Router, repo: userRepository, usecase: userUsecase) {
+
         this.repo = repo
         this.usecase = usecase
 
         // setup user routes
 
-        router.use("/api/v1", (req, res, next) => {
-            console.log('Time:', Date.now())
-            next()
-        })
-        router.post("/echo", this.echo)
-        router.post("/api/v1/create", this.createUser)
-        router.get("/", this.getAll)
+        app.use("/user", this.router)
+        this.router.post("/echo", this.echo)
+        this.router.post("/create", this.createUser)
+        this.router.get("/", this.getAll)
     }
 
     private echo = (req: Request, res: Response) => {

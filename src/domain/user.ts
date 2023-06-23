@@ -1,4 +1,4 @@
-export interface User {
+export interface IUser {
     _id?: string;
     email: string;
     firstName: string;
@@ -6,9 +6,13 @@ export interface User {
 }
 
 export interface userRepository {
-    echo(user: User): User;
+    echo(user: IUser): IUser;
+    create(user: IUser): Promise<IUser>;
+    getAll(): Promise<IUser[]>;
 }
 
 export interface userUsecase {
-    echo(user: User): User;
+    echo(user: IUser): IUser;
+    create(user: IUser): Promise<IUser>;
+    getAll(): Promise<IUser[]>;
 }

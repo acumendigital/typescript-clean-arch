@@ -1,4 +1,4 @@
-import {userUsecase, User, userRepository} from "@domain/user";
+import {IUser, userRepository, userUsecase} from "@domain/user";
 
 export class UserUsecase implements userUsecase {
     repo: userRepository;
@@ -7,7 +7,15 @@ export class UserUsecase implements userUsecase {
         this.repo = repo
     }
 
-    echo(user: User): User {
-        return user;
+    echo(user: IUser): IUser {
+        return this.repo.echo(user);
+    }
+
+    async create(user: IUser): Promise<IUser> {
+        return await this.repo.create(user);
+    }
+
+    async getAll(): Promise<IUser[]> {
+        return await this.repo.getAll();
     }
 }

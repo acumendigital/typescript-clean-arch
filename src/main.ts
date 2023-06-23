@@ -1,7 +1,7 @@
 require('module-alias/register')
 import express, { Express } from 'express';
 import { setupRouter } from "@delivery/http/router"
-import {setupMongo} from "@repository/mongodb/mongodb";
+import {mongoRepository} from "@repository/mongodb/mongodb";
 import dotenv from 'dotenv';
 import bodyParser from "body-parser";
 
@@ -12,7 +12,9 @@ dotenv.config();
     const port = process.env.PORT || "5001";
     app.use(bodyParser.json())
 
-    const repo = await setupMongo()
+    const mongoRepo = new mongoRepository()
+
+    const repo = await mongoRepo.setupMongo()
 
     let _app = setupRouter(app,{ userRepository:repo.userRepository })
 

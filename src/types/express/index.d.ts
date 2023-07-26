@@ -4,8 +4,8 @@ declare global {
   namespace Express {}
 
   namespace Models {
-    export type UserModel = Model<Document>;
-    export type AdminModel = Model<Document>;
-    export type WalletModel = Model<Document>;
+    export type User = Model<Document>;
+    export type Admin = Model<Document>;
+    export type Wallet = Model<Document>;
   }
 }

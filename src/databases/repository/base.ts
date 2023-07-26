@@ -1,8 +1,15 @@
-import { convertToObjectId, nilObjectId } from "@src/helpers/index";
+import { convertToObjectId, nilObjectId } from "@src/helpers";
 import mongoose from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
+
+mongoose.plugin(mongoosePaginate);
+mongoose.plugin(mongooseAggregatePaginate);
 
 export class Base {
-  constructor(model) {
+  protected Model: mongoose.Model<any>;
+
+  constructor(model: mongoose.Model<any>) {
     this.Model = model;
   }
 
@@ -51,19 +58,14 @@ export class Base {
 
   async paginate(
     query = {},
-    { count, page, sort } = {},
-    populate = null,
-    select = null
+    pagination: { count?: number; page?: number; sort?: any } = {},
+    populate: string[] | null = null,
+    select: string | null = null
   ) {
     query = { ...query, deleted: false };
+    let { count = 15, page = 1, sort = { createdAt: -1 } } = pagination;
 
-    count = count || 15;
-    page = page || 1;
-    sort = sort || {
-      createdAt: -1,
-    };
-
-    const options = {
+    const options: any = {
       limit: count,
       page: page,
       sort: sort,
@@ -77,18 +79,19 @@ export class Base {
       options.select = select;
     }
 
+    // @ts-ignore
     const res = await this.Model.paginate(query, options);
 
     return res;
   }
 
-  async paginateAggregate(pipeline = [], { count, page, sort } = {}) {
-    count = count || 15;
-    page = page || 1;
-    sort = sort || {
-      createdAt: -1,
-    };
+  async paginateAggregate(
+    pipeline = [],
+    pagination: { count?: number; page?: number; sort?: any } = {}
+  ) {
+    let { count = 15, page = 1, sort = { createdAt: -1 } } = pagination;
 
+    // @ts-ignore
     const res = await this.Model.aggregatePaginate(
       this.Model.aggregate(pipeline),
       {

@@ -2,7 +2,7 @@ import CryptoJS from "crypto-js";
 import crypto from "crypto";
 import bcrypt from "bcryptjs";
 import pkg from "mongoose";
-import { addMinutes } from "./date.js";
+import { addMinutes } from "@src/helpers/date";
 const { Types } = pkg;
 
 // cryptr encrypt
@@ -64,8 +64,10 @@ export const generateToken = async (length = 6, minutes = 5) => {
   };
 };
 
-export const convertToObjectId = (id) => {
+export const convertToObjectId = (id: string) => {
   try {
+    // @ts-ignore
+    // todo: fix this
     return new Types.ObjectId(id);
   } catch (error) {
     return id;
@@ -73,32 +75,10 @@ export const convertToObjectId = (id) => {
 };
 
 export const nilObjectId = () => {
+  // @ts-ignore
+  // todo: fix this
   return new Types.ObjectId("000000000000000000000000");
 };
-
-export const countries = {
-  nigeria: "NG",
-  ghana: "GH",
-  "united states": "US",
-};
-
-export const flutterwaveCountries = {
-  nigeria: "NG",
-  ghana: "GH",
-  kenya: "KE",
-  uganda: "UG",
-  south_africa: "ZA",
-  tanzania: "TZ",
-};
-
-export function headerConfig(auth, contentType = "application/json") {
-  return {
-    headers: {
-      Authorization: `Bearer ${auth}`,
-      "Content-type": contentType,
-    },
-  };
-}
 
 export const processData = (data, fields) => {};
 

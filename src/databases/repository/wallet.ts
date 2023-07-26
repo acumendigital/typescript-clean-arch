@@ -1,12 +1,12 @@
-import Base from "./base.js";
-import User from "../models/user.js";
+import Base from "@src/databases/repository/base";
+import User from "@src/databases/mongoDb/models/wallet";
 
-export class UserRepo extends Base {
+export class WalletRepo extends Base {
   constructor() {
     super(User);
   }
 
-  // TODO: Add IUser interface for data
+  // TODO: Add IWallet interface for data
   async create(data) {
     data = this.processData(data, []);
     return await this.baseCreate(data);
@@ -17,4 +17,4 @@ export class UserRepo extends Base {
   }
 }
 
-export default new UserRepo();
+export default new WalletRepo();

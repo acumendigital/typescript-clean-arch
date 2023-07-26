@@ -5,13 +5,13 @@ import agendash from "./routes/agendash";
 
 // guaranteed to get dependencies
 export default () => {
-  const app = Router();
+	const app = Router();
 
-  agendash(app);
+	agendash(app);
 
-  //admin
-  admin(app);
-  adminAuth(app);
+	//admin
+	admin(app);
+	adminAuth(app);
 
-  return app;
+	return app;
 };

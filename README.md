@@ -39,10 +39,10 @@ It uses nodemon for live reloading :peace-fingers:
 
 You can use Gitpod for the one click online setup. With a single click it will launch a workspace and automatically:
 
-- clone the `saturn-nodejs` repo.
-- install the dependencies.
-- run `cp .env.example .env`.
-- run `npm run dev`.
+-   clone the `saturn-nodejs` repo.
+-   install the dependencies.
+-   run `cp .env.example .env`.
+-   run `npm run dev`.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)
 
@@ -52,17 +52,17 @@ By using [validatorjs](github.com/mikeerickson/validatorjs), the req.body schema
 
 ```js
 export function validateLogin(req, res, next) {
-  const validationRule = {
-    email: "required|string|email",
-    password: "required|string",
-  };
-  validator(req.body, validationRule, {}, (err, status) => {
-    if (!status) {
-      sendError(res, err);
-    } else {
-      next();
-    }
-  });
+	const validationRule = {
+		email: "required|string|email",
+		password: "required|string",
+	};
+	validator(req.body, validationRule, {}, (err, status) => {
+		if (!status) {
+			sendError(res, err);
+		} else {
+			next();
+		}
+	});
 }
 ```
 
@@ -74,10 +74,10 @@ route.post("/sign_in", validateLogin, controller.signIn);
 
 ```json
 {
-  "code": 412,
-  "status": "failed",
-  "error": true,
-  "message": "The password field is required."
+	"code": 412,
+	"status": "failed",
+	"error": true,
+	"message": "The password field is required."
 }
 ```
 
@@ -85,14 +85,14 @@ route.post("/sign_in", validateLogin, controller.signIn);
 
 # Roadmap
 
-- [x] API Validation layer (Validatorjs)
-- [ ] Unit tests examples
-- [ ] [Cluster mode](https://softwareontheroad.com/nodejs-scalability-issues?utm_source=github&utm_medium=readme)
-- [x] The logging _'layer'_
-- [ ] Add agenda dashboard
-- [x] Continuous integration with CircleCI 😍
-- [ ] Deploys script and docs for AWS Elastic Beanstalk and Heroku
-- [ ] Instructions on typescript debugging with VSCode
+-   [x] API Validation layer (Validatorjs)
+-   [ ] Unit tests examples
+-   [ ] [Cluster mode](https://softwareontheroad.com/nodejs-scalability-issues?utm_source=github&utm_medium=readme)
+-   [x] The logging _'layer'_
+-   [ ] Add agenda dashboard
+-   [x] Continuous integration with CircleCI 😍
+-   [ ] Deploys script and docs for AWS Elastic Beanstalk and Heroku
+-   [ ] Instructions on typescript debugging with VSCode
 
 ## API Documentation
 

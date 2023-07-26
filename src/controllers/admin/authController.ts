@@ -12,29 +12,32 @@ import { generateJwtToken } from "@src/helpers/jwtHelper";
 @Service()
 export default class AuthController {
 	constructor(
-		@Inject("adminModel") private adminModel: Models.AdminModel,
+		@Inject("adminRepo") private adminRepo: Models.Admin,
 		@Inject("logger") private logger,
 		private mailer: MailerService,
 	) {}
 
 	public async adminSignIn(email: string, password: string) {
 		try {
-			const user = await this.adminModel.findOne({ email }).select("+password");
+			const user = await this.adminRepo.findOne({ email }, "+password");
 
-			let userObject = user.toObject();
-			//compare password
-			const validPassword = await verifyHash(userObject["password"], password);
-
-			if (!validPassword) {
-				handleResponse(500, "Incorrect Email or Password");
+			if (!user) {
+				return handleResponse(401, "Incorrect Email or Password");
 			}
 
-			Reflect.deleteProperty(userObject, "password"); //@todo make sure this works
+			//compare password
+			const validPassword = await verifyHash(user["password"], password);
+
+			if (!validPassword) {
+				return handleResponse(401, "Incorrect Email or Password");
+			}
+
+			Reflect.deleteProperty(user, "password"); //@todo make sure this works
 
 			const token = await generateJwtToken(user);
 			return handleResponse(200, "Admin signed in successfully", {
 				token,
-				user: userObject,
+				user,
 			});
 		} catch (e) {
 			this.logger.error("🔥 error: %o", e);

@@ -8,4 +8,6 @@ declare global {
 		export type Admin = Model<Document>;
 		export type Wallet = Model<Document>;
 	}
+
+	namespace Repositories {}
 }

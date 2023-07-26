@@ -1,7 +1,7 @@
 import { Router } from "express";
-import admin from "./routes/admin/admin";
-import adminAuth from "./routes/admin/auth";
-import agendash from "./routes/agendash";
+import admin from "@src/api/http/routes/admin/admin";
+import adminAuth from "@src/api/http/routes/admin/auth";
+import agendash from "@src/api/http/routes/agendash";
 
 // guaranteed to get dependencies
 export default () => {

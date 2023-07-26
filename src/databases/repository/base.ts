@@ -36,6 +36,8 @@ export class Base {
 			createdAt: 1,
 		};
 
+		console.log(query);
+		console.log(this.Model.collection.name);
 		const res = await this.Model.findOne(query).select(select).populate(populate).sort(sort);
 
 		return res;

@@ -18,7 +18,6 @@ export default async ({ expressApp }) => {
 
 	const userRepo = {
 		name: "userRepo",
-		// Notice the require syntax and the '.default'
 		model: Db.User,
 	};
 	const adminRepo = {

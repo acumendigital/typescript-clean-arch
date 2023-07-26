@@ -1,5 +1,5 @@
-import { tokenVerifier } from "../../helpers/jwtHelper";
-import mongodb from "mongodb";
+import { tokenVerifier } from "../../../helpers/jwtHelper";
+import { ObjectId } from "mongodb";
 
 /**
  * We are assuming that the JWT will come in a header with the form
@@ -8,7 +8,6 @@ import mongodb from "mongodb";
  */
 /// Make sure you cross check this and set it up to your style and how you use JWT
 const isAuth = async (req, res, next) => {
-	const { ObjectID } = mongodb;
 	const authHeader = req.headers.authorization;
 
 	if ((authHeader && authHeader.split(" ")[0] === "Token") || (authHeader && authHeader.split(" ")[0] === "Bearer")) {
@@ -23,7 +22,7 @@ const isAuth = async (req, res, next) => {
 				});
 			}
 
-			decodedToken._id = new ObjectID(`${decodedToken._id}`);
+			decodedToken._id = new ObjectId(`${decodedToken._id}`);
 
 			req.currentUser = decodedToken;
 			next();

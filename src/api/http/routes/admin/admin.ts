@@ -10,7 +10,7 @@ import AdminController from "@src/controllers/admin/adminController";
 import { validateCreateAdmin } from "@src/validators/admin/adminValidators";
 
 //middleware
-import middlewares from "@src/api/middlewares";
+import middlewares from "@src/api/http/middlewares";
 
 //helpers
 import handleResponse from "@src/helpers/response";

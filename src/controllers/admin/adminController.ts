@@ -11,7 +11,7 @@ import handleResponse from "@src/helpers/response";
 @Service()
 export default class AdminController {
 	constructor(
-		@Inject("adminModel") private adminModel: Models.AdminModel,
+		@Inject("adminRepo") private adminRepo: Models.Admin,
 		@Inject("logger") private logger,
 		private mailer: MailerService,
 	) {}
@@ -27,7 +27,7 @@ export default class AdminController {
 
 			const password = await hash(gen_password.toString());
 
-			const admin = await this.adminModel.create({
+			const admin = await this.adminRepo.create({
 				...data,
 				created_by,
 				password: password,
@@ -67,7 +67,7 @@ export default class AdminController {
 	//get all admins
 	public async getAdmins(query) {
 		try {
-			const admins = await this.adminModel.find();
+			const admins = await this.adminRepo.find();
 
 			return handleResponse(200, "Admin retrieved successfully", { admins });
 		} catch (e) {
@@ -87,6 +87,6 @@ export default class AdminController {
 				? { email: param }
 				: { _id: param };
 
-		return await this.adminModel.findOne(query).select("+password +pin");
+		return await this.adminRepo.findOne(query).select("+password +pin");
 	}
 }

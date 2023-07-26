@@ -18,7 +18,7 @@ const route = Router();
 export default (app: Router) => {
 	app.use("/admin/auth", route);
 
-	route.post("/sign_in", validateLogin, async (req: Request, res: Response, next: NextFunction) => {
+	route.post("/sign-in", validateLogin, async (req: Request, res: Response, next: NextFunction) => {
 		const logger: Logger = Container.get("logger");
 		logger.debug("Admin signing in with body: %o", req.body);
 		try {

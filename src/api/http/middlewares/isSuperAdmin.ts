@@ -12,8 +12,8 @@ import { Logger } from "winston";
 const isSuperAdmin = async (req: any, res: any, next: any) => {
 	const Logger: Logger = Container.get("logger");
 	try {
-		const AdminModel = Container.get("adminModel") as mongoose.Model<mongoose.Document>;
-		const admin = await AdminModel.findById(req.currentUser._id);
+		const AdminRepo = Container.get("adminRepo") as mongoose.Model<mongoose.Document>;
+		const admin = await AdminRepo.findById(req.currentUser._id);
 		if (!admin) {
 			return res.status(403).send({
 				error: true,

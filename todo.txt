@@ -1,0 +1,4 @@
+
+
+* add device type location to sign and send mails when they change.
+* create login history model
